@@ -29,9 +29,30 @@ public class Pizza {
     @OneToMany
     private List<Topping> toppings;
 
-    //public int getId() {
-    //    return id;
-    //}
+    public static final class PizzaBuilder {
+
+        private PizzaType pizzaType;
+
+        private List<Topping> toppings;
+
+        public PizzaBuilder withPizzaType(PizzaType pizzaType) {
+            this.pizzaType = pizzaType;
+            return this;
+        }
+
+        public PizzaBuilder withTopping(List<Topping> toppings) {
+            this.toppings = toppings;
+            return this;
+        }
+
+        public Pizza build() {
+            Pizza pizza = new Pizza();
+            pizza.setPizzaType(this.pizzaType);
+            pizza.setToppings(this.toppings);
+            return pizza;
+        }
+
+    }
 
     public PizzaType getPizzaType() {
         return pizzaType;
@@ -41,17 +62,14 @@ public class Pizza {
         return toppings;
     }
 
-    //public void setId(int id) {
-    //    this.id = id;
-    //}
-
-    public void setPizzaType(PizzaType pizzaType) {
+    private void setPizzaType(PizzaType pizzaType) {
         this.pizzaType = pizzaType;
     }
 
-    public void setToppings(List<Topping> toppings) {
+    private void setToppings(List<Topping> toppings) {
         this.toppings = toppings;
     }
 }
+
 
 

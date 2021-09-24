@@ -10,6 +10,43 @@ public class PizzaOutput {
 
     private List<ToppingOutput> toppings;
 
+    private PizzaOutput() {
+    }
+
+    public static final class PizzaOutputBuilder {
+
+        private String pizzaType;
+
+        private Double price;
+
+        private List<ToppingOutput> toppings;
+
+        public PizzaOutputBuilder withPizzaType(String pizzaType) {
+            this.pizzaType = pizzaType;
+            return this;
+        }
+
+        public PizzaOutputBuilder withPrice(Double price) {
+            this.price = price;
+            return this;
+        }
+
+        public PizzaOutputBuilder withToppings(List<ToppingOutput> toppings) {
+            this.toppings = toppings;
+            return this;
+        }
+
+        public PizzaOutput build() {
+            PizzaOutput pizzaOutput = new PizzaOutput();
+            pizzaOutput.setPizzaType(this.pizzaType);
+            pizzaOutput.setPrice(this.price);
+            pizzaOutput.setToppings(this.toppings);
+            return pizzaOutput;
+        }
+
+    }
+
+
     public String getPizzaType() {
         return pizzaType;
     }

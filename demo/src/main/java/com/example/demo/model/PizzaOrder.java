@@ -33,6 +33,9 @@ public class PizzaOrder {
     @Column
     private Boolean paymentStatus;
 
+    @Column
+    private String deliveryAddress;
+
 
     @JoinTable(
             name = "order_to_pizza",
@@ -47,6 +50,57 @@ public class PizzaOrder {
     )
     @OneToMany(cascade = CascadeType.ALL)
     private List<Pizza> pizzas;
+
+    public static final class PizzaOrderBuilder {
+
+        private Customer customer;
+
+        private PayOption payOption;
+
+        private OrderStatus orderStatus;
+
+        private String deliveryAddress;
+
+        private List<Pizza> pizzas;
+
+        public PizzaOrderBuilder withCustomer(Customer customer) {
+            this.customer = customer;
+            return this;
+        }
+
+        public PizzaOrderBuilder withPayOption(PayOption payOption) {
+            this.payOption = payOption;
+            return this;
+        }
+
+        public PizzaOrderBuilder withOrderStatus(OrderStatus orderStatus) {
+            this.orderStatus = orderStatus;
+            return this;
+        }
+
+        public PizzaOrderBuilder withDeliveryAddress(String deliveryAddress) {
+            this.deliveryAddress = deliveryAddress;
+            return this;
+        }
+
+        public PizzaOrderBuilder withPizzas(List<Pizza> pizzas) {
+            this.pizzas = pizzas;
+            return this;
+        }
+
+        public PizzaOrder build() {
+            PizzaOrder pizzaOrder = new PizzaOrder();
+            pizzaOrder.setPaymentStatus(Boolean.FALSE);
+            pizzaOrder.setCustomer(this.customer);
+            pizzaOrder.setPayOption(this.payOption);
+            pizzaOrder.setOrderStatus(this.orderStatus);
+            pizzaOrder.setPizzas(this.pizzas);
+            pizzaOrder.setUuid(UUID.randomUUID());
+            pizzaOrder.setDeliveryAddress(this.deliveryAddress);
+
+            return pizzaOrder;
+        }
+    }
 
     public int getId() {
         return id;
@@ -72,6 +126,10 @@ public class PizzaOrder {
         return paymentStatus;
     }
 
+    public String getDeliveryAddress() {
+        return deliveryAddress;
+    }
+
     public List<Pizza> getPizzas() {
         return pizzas;
     }
@@ -80,15 +138,15 @@ public class PizzaOrder {
         this.id = id;
     }
 
-    public void setUuid(UUID uuid) {
+    private void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
 
-    public void setCustomer(Customer customer) {
+    private void setCustomer(Customer customer) {
         this.customer = customer;
     }
 
-    public void setPayOption(PayOption payOption) {
+    private void setPayOption(PayOption payOption) {
         this.payOption = payOption;
     }
 
@@ -100,7 +158,11 @@ public class PizzaOrder {
         this.paymentStatus = paymentStatus;
     }
 
-    public void setPizzas(List<Pizza> pizzas) {
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
+    private void setPizzas(List<Pizza> pizzas) {
         this.pizzas = pizzas;
     }
 }

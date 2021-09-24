@@ -53,7 +53,8 @@ CREATE TABLE pizza_order (
   customer_id INT NOT NULL,
   pay_option_id INT NOT NULL,
   order_status_id INT NOT NULL,
-  payment_status BOOLEAN NOT NULL
+  payment_status BOOLEAN NOT NULL,
+  delivery_address VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS order_to_pizza;

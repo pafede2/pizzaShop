@@ -37,7 +37,7 @@ public class OrderControllerTests {
         assertEquals("Alina", customer.getFirstName());
         assertEquals("Lopez", customer.getLastName());
         assertEquals("WAITING", singleOrder.getOrderStatus());
-        assertEquals("CASH", singleOrder.getPayOption());
+        assertEquals("ONLINE", singleOrder.getPayOption());
         assertEquals("123e4567-e89b-42d3-a456-556642440000", singleOrder.getUuid());
 
         List<PizzaOutput> pizzas = singleOrder.getPizzas();
@@ -61,7 +61,7 @@ public class OrderControllerTests {
         assertEquals("Marcia", customer.getFirstName());
         assertEquals("Tenemo", customer.getLastName());
         assertEquals("WAITING", orderOutput.getOrderStatus());
-        assertEquals("CASH", orderOutput.getPayOption());
+        assertEquals("ONLINE", orderOutput.getPayOption());
         assertEquals("eb5dcd25-794d-41bc-8c80-915b339aef08", orderOutput.getUuid());
 
         pizzas = orderOutput.getPizzas();
@@ -83,7 +83,7 @@ public class OrderControllerTests {
         assertEquals("Albert", customer.getFirstName());
         assertEquals("Rikol", customer.getLastName());
         assertEquals("READY", orderOutput.getOrderStatus());
-        assertEquals("CREDIT_CARD", orderOutput.getPayOption());
+        assertEquals("OFFLINE", orderOutput.getPayOption());
         assertEquals("0c810aed-0b11-4fee-86c5-c60f0909e9f3", orderOutput.getUuid());
 
         pizzas = orderOutput.getPizzas();

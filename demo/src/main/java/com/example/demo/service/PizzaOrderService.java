@@ -47,27 +47,33 @@ public class PizzaOrderService {
         return orders;
     }
 
+    /*
+    Convert PizzaOrder (DB object, entity) to OrderOutput object ready to sent as a request result
+     */
     private OrderOutput orderFromDbToOutput(PizzaOrder order) {
-        OrderOutput orderOutput = new OrderOutput();
-        orderOutput.setUuid(order.getUuid().toString());
-        orderOutput.setIsPayed(order.getPaymentStatus());
-        orderOutput.setOrderStatus(order.getOrderStatus().getName());
-        orderOutput.setPayOption(order.getPayOption().getName());
-        orderOutput.setPizzas(order.getPizzas().stream().map(pizza -> {
-            PizzaOutput pizzaOutput = new PizzaOutput();
-            pizzaOutput.setPizzaType(pizza.getPizzaType().getName());
-            pizzaOutput.setPrice(pizza.getPizzaType().getPrice());
-            pizzaOutput.setToppings(pizza.getToppings().stream().map(topping -> {
-                ToppingOutput toppingOutput = new ToppingOutput();
-                toppingOutput.setName(topping.getName());
-                toppingOutput.setPrice(topping.getPrice());
-                return toppingOutput;
-            }).collect(Collectors.toList()));
-            return pizzaOutput;
-        }).collect(Collectors.toList()));
-        orderOutput.setCustomerOutput(new CustomerOutput(order.getCustomer().getUuid(), order.getCustomer().getFirstName(), order.getCustomer().getLastName()));
-        orderOutput.calculateTotalPrice();
-        return orderOutput;
+        return new OrderOutput.OrderOutputBuilder()
+                .withUuid(order.getUuid().toString())
+                .withIsPayed(order.getPaymentStatus())
+                .withOrderStatus(order.getOrderStatus().getName())
+                .withPayOption(order.getPayOption().getName())
+                .withPizzas(order.getPizzas()
+                        .stream()
+                        .map(pizza -> new PizzaOutput.PizzaOutputBuilder()
+                            .withPizzaType(pizza.getPizzaType().getName())
+                            .withPrice(pizza.getPizzaType().getPrice())
+                            .withToppings(pizza.getToppings()
+                                    .stream()
+                                    .map(topping -> new ToppingOutput.ToppingOutputBuilder()
+                                            .withName(topping.getName())
+                                            .withPrice(topping.getPrice())
+                                            .build()
+                                    ).collect(Collectors.toList()))
+                            .build()
+
+                        ).collect(Collectors.toList()))
+                .withCustomerOutput(new CustomerOutput(order.getCustomer().getUuid(), order.getCustomer().getFirstName(), order.getCustomer().getLastName()))
+                .withDeliveryAddress(order.getDeliveryAddress())
+                .build();
     }
 
     public OrderOutput saveOrder(OrderInput order) throws PizzaTypeNotFoundException, ToppingNotFoundException, CustomerNotFoundException, PayOptionNotFoundException, OrderStatusNotFoundException {
@@ -106,8 +112,6 @@ public class PizzaOrderService {
         });
 
         pizzasInOrder.forEach(pizzaInOrder -> {
-            Pizza pizza = new Pizza();
-            pizza.setPizzaType(pizzaTypes.get(pizzaInOrder.getPizzaType()));
             List<Topping> toppingsForPizza = new ArrayList<>();
 
             List<ToppingInput> toppings = pizzaInOrder.getToppings();
@@ -121,19 +125,21 @@ public class PizzaOrderService {
                     }
                 });
             }
-            pizza.setToppings(toppingsForPizza);
-            pizzas.add(pizza);
+
+            pizzas.add(new Pizza.PizzaBuilder()
+                    .withPizzaType(pizzaTypes.get(pizzaInOrder.getPizzaType()))
+                    .withTopping(toppingsForPizza)
+                    .build());
         });
 
-        PizzaOrder pizzaOrder = new PizzaOrder();
-        pizzaOrder.setPaymentStatus(Boolean.FALSE);
-        pizzaOrder.setCustomer(customer);
-        pizzaOrder.setPayOption(payOption);
-        pizzaOrder.setOrderStatus(orderStatus);
-        pizzaOrder.setPizzas(pizzas);
-        pizzaOrder.setUuid(UUID.randomUUID());
+        PizzaOrder pizza = pizzaOrderRepository.save(new PizzaOrder.PizzaOrderBuilder()
+                .withCustomer(customer)
+                .withPayOption(payOption)
+                .withOrderStatus(orderStatus)
+                .withPizzas(pizzas)
+                .withDeliveryAddress(order.getDeliveryAddress())
+                .build());
 
-        PizzaOrder pizza = pizzaOrderRepository.save(pizzaOrder);
         return orderFromDbToOutput(pizza);
 
     }
@@ -165,7 +171,12 @@ public class PizzaOrderService {
             pizzaOrder.setPaymentStatus(order.getPaymentStatus());
         }
 
+        if (order.getDeliveryAddress() == null) {
+            throw new DeliveryAddressNotNullException();
+        }
+
         pizzaOrder.setOrderStatus(orderStatus);
+        pizzaOrder.setDeliveryAddress(order.getDeliveryAddress());
         pizzaOrderRepository.save(pizzaOrder);
     }
 

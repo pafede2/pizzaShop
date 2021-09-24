@@ -4,8 +4,8 @@ INSERT INTO customer (uuid, first_name, last_name, card_number) VALUES
   ('1b0aafc3-c89a-4ea3-b79c-f4da18b905e2', 'Albert', 'Rikol', '9876');
 
 INSERT INTO pay_option (name) VALUES
-  ('CASH'),
-  ('CREDIT_CARD');
+  ('ONLINE'),
+  ('OFFLINE');
 
 INSERT INTO pizza_type (name, price) VALUES
   ('NORMAL', 5.00),
@@ -39,10 +39,10 @@ INSERT INTO pizza_to_topping (pizza_id, topping_id) VALUES
   (2, 3),
   (3, 1);
 
-INSERT INTO pizza_order (uuid, customer_id, pay_option_id, order_status_id, payment_status) VALUES
-  ('123e4567-e89b-42d3-a456-556642440000', 1, 1, 1, FALSE),
-  ('eb5dcd25-794d-41bc-8c80-915b339aef08', 2, 1, 1, FALSE),
-  ('0c810aed-0b11-4fee-86c5-c60f0909e9f3', 3, 2, 3, TRUE);
+INSERT INTO pizza_order (uuid, customer_id, pay_option_id, order_status_id, payment_status, delivery_address) VALUES
+  ('123e4567-e89b-42d3-a456-556642440000', 1, 1, 1, FALSE, 'Evergreen Terrace 123'),
+  ('eb5dcd25-794d-41bc-8c80-915b339aef08', 2, 1, 1, FALSE, 'Av. Siempreviva 345'),
+  ('0c810aed-0b11-4fee-86c5-c60f0909e9f3', 3, 2, 3, TRUE, 'Evergreen Av 987');
 
 INSERT INTO order_to_pizza (order_id, pizza_id) VALUES
   (1, 1),

@@ -15,6 +15,8 @@ public class OrderInput {
 
     private Boolean paymentStatus;
 
+    private String deliveryAddress;
+
     private List<PizzaInput> pizzas;
 
     public String getStatus() {
@@ -31,6 +33,10 @@ public class OrderInput {
 
     public String getPayOption() {
         return payOption;
+    }
+
+    public String getDeliveryAddress() {
+        return deliveryAddress;
     }
 
     public List<PizzaInput> getPizzas() {
@@ -51,6 +57,10 @@ public class OrderInput {
 
     public void setPayOption(String payOption) {
         this.payOption = payOption;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
     }
 
     public void setPizzas(List<PizzaInput> pizzas) {

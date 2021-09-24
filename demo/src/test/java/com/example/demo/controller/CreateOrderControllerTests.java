@@ -28,12 +28,13 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         // WHEN a new single order is created
         OrderInput order = new OrderInput();
         order.setCustomerUuid(UUID.fromString(FIRST_CUSTOMER_UUID));
-        order.setPayOption("CASH");
+        order.setPayOption("ONLINE");
         order.setStatus(COOKING_STATE);
         List<PizzaInput> pizzas = new ArrayList<>();
         pizzas.add(new PizzaInput("NORMAL"));
         pizzas.add(new PizzaInput("VEGGIE"));
         order.setPizzas(pizzas);
+        order.setDeliveryAddress("New address");
         HttpEntity<OrderInput> request = new HttpEntity<>(order);
         ResponseEntity<OrderOutput> responseEntity = this.restTemplate.postForEntity(SERVICE_URL + port + SINGLE_ORDER_URL, request, OrderOutput.class);
 
@@ -47,7 +48,7 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         assertEquals("Alina", customer.getFirstName());
         assertEquals("Lopez", customer.getLastName());
         assertEquals(COOKING_STATE, singleOrder.getOrderStatus());
-        assertEquals("CASH", singleOrder.getPayOption());
+        assertEquals("ONLINE", singleOrder.getPayOption());
 
         List<PizzaOutput> pizzasResult = singleOrder.getPizzas();
         assertEquals(2, pizzasResult.size());
@@ -75,7 +76,7 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         // WHEN a new single order is created with unknown customer UUID
         OrderInput order = new OrderInput();
         order.setCustomerUuid(UUID.randomUUID());
-        order.setPayOption("CASH");
+        order.setPayOption("ONLINE");
         order.setStatus(COOKING_STATE);
         List<PizzaInput> pizzas = new ArrayList<>();
         pizzas.add(new PizzaInput("NORMAL"));
@@ -96,7 +97,7 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         // WHEN a new single order is created with unknown payment option
         OrderInput order = new OrderInput();
         order.setCustomerUuid(UUID.fromString((FIRST_CUSTOMER_UUID)));
-        order.setPayOption("CASHs");
+        order.setPayOption("ONLINEs");
         order.setStatus(COOKING_STATE);
         List<PizzaInput> pizzas = new ArrayList<>();
         pizzas.add(new PizzaInput("NORMAL"));
@@ -117,7 +118,7 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         // WHEN a new single order is created with unknown order status
         OrderInput order = new OrderInput();
         order.setCustomerUuid(UUID.fromString((FIRST_CUSTOMER_UUID)));
-        order.setPayOption("CASH");
+        order.setPayOption("ONLINE");
         order.setStatus("INVALID");
         List<PizzaInput> pizzas = new ArrayList<>();
         pizzas.add(new PizzaInput("NORMAL"));
@@ -138,7 +139,7 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         // WHEN a new single order is created with unknown order status
         OrderInput order = new OrderInput();
         order.setCustomerUuid(UUID.fromString((FIRST_CUSTOMER_UUID)));
-        order.setPayOption("CASH");
+        order.setPayOption("ONLINE");
         order.setStatus("COOKING");
         List<PizzaInput> pizzas = new ArrayList<>();
         pizzas.add(new PizzaInput("NORMALE"));
