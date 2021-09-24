@@ -26,6 +26,7 @@ public class OrderControllerTests {
 
     protected static String SERVICE_URL = "http://localhost:";
     protected static String ALL_ORDERS_URL = "/orders";
+    protected static String ALL_CUSTOMERS_URL = "/customers";
     protected static String ORDER_UUID = "123e4567-e89b-42d3-a456-556642440000";
     protected static String FIRST_CUSTOMER_UUID = "19e7a509-38a5-401a-8467-6b22ecbe519f";
     protected static String SINGLE_ORDER_URL = "/order";

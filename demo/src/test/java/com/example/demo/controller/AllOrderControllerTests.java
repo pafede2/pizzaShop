@@ -29,7 +29,6 @@ public class AllOrderControllerTests extends OrderControllerTests {
 
         // AND 3 orders are retrieved
         OrderOutput[] allOrders = responseEntity.getBody();
-        System.out.println(allOrders.length);
         assertEquals(3, allOrders.length);
 
         // AND the details of first order are correct
