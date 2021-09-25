@@ -1,11 +1,8 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.PayOption;
-import com.example.demo.model.output.CustomerOutput;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
-
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

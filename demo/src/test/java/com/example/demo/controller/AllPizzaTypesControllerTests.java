@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.PayOption;
 import com.example.demo.model.PizzaType;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;

@@ -33,6 +33,7 @@ public class OrderControllerTests {
     protected static String FIRST_CUSTOMER_UUID = "19e7a509-38a5-401a-8467-6b22ecbe519f";
     protected static String SINGLE_ORDER_URL = "/order";
     protected static String COOKING_STATE = "COOKING";
+    protected static String CANCELLED_STATE = "CANCELLED";
 
     protected void verifyFirstOrder(OrderOutput singleOrder) {
         CustomerOutput customer = singleOrder.getCustomerOutput();

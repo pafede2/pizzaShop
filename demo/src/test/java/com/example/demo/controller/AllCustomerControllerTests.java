@@ -1,13 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.output.CustomerOutput;
-import com.example.demo.model.output.OrderOutput;
-import com.example.demo.model.output.PizzaOutput;
-import com.example.demo.model.output.ToppingOutput;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.ResponseEntity;
 
-import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

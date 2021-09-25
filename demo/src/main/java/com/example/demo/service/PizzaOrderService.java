@@ -154,7 +154,7 @@ public class PizzaOrderService {
         return orderFromDbToOutput(order);
     }
 
-    public void updateOrder(UUID orderUuid, OrderInput order) throws OrderStatusNotFoundException {
+    public OrderOutput updateOrder(UUID orderUuid, OrderInput order) throws OrderStatusNotFoundException {
         OrderStatus orderStatus = orderStatusRepository.findByName(order.getStatus());
 
         if (order.getStatus() != null && orderStatus == null) {
@@ -177,7 +177,7 @@ public class PizzaOrderService {
 
         pizzaOrder.setOrderStatus(orderStatus);
         pizzaOrder.setDeliveryAddress(order.getDeliveryAddress());
-        pizzaOrderRepository.save(pizzaOrder);
+        return this.orderFromDbToOutput(pizzaOrderRepository.save(pizzaOrder));
     }
 
     public void delete(UUID orderUuid) throws OrderStatusNotFoundException {

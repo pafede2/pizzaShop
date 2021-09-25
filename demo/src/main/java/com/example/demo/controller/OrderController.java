@@ -29,8 +29,8 @@ public class OrderController
     }
 
     @PatchMapping("/order/{uuid}")
-    private void changeOrderStatus(@PathVariable final String uuid, @RequestBody OrderInput order) {
-        pizzaOrderService.updateOrder(UUID.fromString(uuid), order);
+    private OrderOutput changeOrderStatus(@PathVariable final String uuid, @RequestBody OrderInput order) {
+        return pizzaOrderService.updateOrder(UUID.fromString(uuid), order);
     }
 
     @DeleteMapping("/order/{uuid}")
