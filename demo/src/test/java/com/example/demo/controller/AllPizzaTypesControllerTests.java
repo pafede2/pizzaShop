@@ -16,22 +16,22 @@ public class AllPizzaTypesControllerTests extends OrderControllerTests {
         // GIVEN 3 customers set on the DB
 
         // WHEN all the customers are requested
-        ResponseEntity<PizzaType[]> responseEntity = this.restTemplate.getForEntity( SERVICE_URL + port + ALL_PIZZA_TYPES_URL,
-                PizzaType[].class);
+        ResponseEntity<String[]> responseEntity = this.restTemplate.getForEntity( SERVICE_URL + port + ALL_PIZZA_TYPES_URL,
+                String[].class);
 
         // THEN the request executes successfully
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         // AND 3 customers are retrieved
-        PizzaType[] pizzaType = responseEntity.getBody();
+        String[] pizzaType = responseEntity.getBody();
         assertEquals(2, pizzaType.length);
 
         // AND the details of first order are correct
-        PizzaType payOption = pizzaType[0];
-        assertEquals("NORMAL", payOption.getName());
+        String payOption = pizzaType[0];
+        assertEquals("NORMAL", payOption);
 
         payOption = pizzaType[1];
-        assertEquals("VEGGIE", payOption.getName());
+        assertEquals("VEGGIE", payOption);
 
     }
 

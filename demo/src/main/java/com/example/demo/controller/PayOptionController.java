@@ -15,7 +15,7 @@ public class PayOptionController {
     PayOptionService payOptionService;
 
     @GetMapping("/pay_options")
-    private List<PayOption> getAllPayOptions() {
+    private List<String> getAllPayOptions() {
         return payOptionService.getAllPayOptions();
     }
 

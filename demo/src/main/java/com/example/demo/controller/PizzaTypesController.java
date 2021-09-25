@@ -15,7 +15,7 @@ public class PizzaTypesController {
     PizzaTypeService pizzaTypeService;
 
     @GetMapping("/pizza_types")
-    private List<PizzaType> getAllPizzaTypes() {
+    private List<String> getAllPizzaTypes() {
         return pizzaTypeService.getAllPizzaTypes();
     }
 

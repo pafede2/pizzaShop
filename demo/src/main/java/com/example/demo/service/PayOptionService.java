@@ -15,10 +15,10 @@ public class PayOptionService {
     @Autowired
     PayOptionRepository payOptionRepository;
 
-    public List<PayOption> getAllPayOptions()
+    public List<String> getAllPayOptions()
     {
-        List<PayOption> payOptions = new ArrayList<PayOption>();
-        payOptionRepository.findAll().forEach(payOption -> payOptions.add(payOption));
+        List<String> payOptions = new ArrayList<String>();
+        payOptionRepository.findAll().forEach(payOption -> payOptions.add(payOption.getName()));
         return payOptions;
     }
 

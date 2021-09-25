@@ -16,22 +16,22 @@ public class AllPayOptionsControllerTests extends OrderControllerTests {
         // GIVEN 3 customers set on the DB
 
         // WHEN all the customers are requested
-        ResponseEntity<PayOption[]> responseEntity = this.restTemplate.getForEntity( SERVICE_URL + port + ALL_PAY_OPTIONS_URL,
-                PayOption[].class);
+        ResponseEntity<String[]> responseEntity = this.restTemplate.getForEntity( SERVICE_URL + port + ALL_PAY_OPTIONS_URL,
+                String[].class);
 
         // THEN the request executes successfully
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         // AND 3 customers are retrieved
-        PayOption[] payOptions = responseEntity.getBody();
+        String[] payOptions = responseEntity.getBody();
         assertEquals(2, payOptions.length);
 
         // AND the details of first order are correct
-        PayOption payOption = payOptions[0];
-        assertEquals("ONLINE", payOption.getName());
+        String payOption = payOptions[0];
+        assertEquals("ONLINE", payOption);
 
         payOption = payOptions[1];
-        assertEquals("OFFLINE", payOption.getName());
+        assertEquals("OFFLINE", payOption);
 
     }
 

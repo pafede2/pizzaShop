@@ -15,7 +15,7 @@ public class ToppingsController {
     ToppingService toppingService;
 
     @GetMapping("/toppings")
-    private List<Topping> getAllToppings() {
+    private List<String> getAllToppings() {
         return toppingService.getAllToppings();
     }
 

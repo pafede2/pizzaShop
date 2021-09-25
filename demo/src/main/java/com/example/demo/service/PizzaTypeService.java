@@ -15,10 +15,10 @@ public class PizzaTypeService {
     @Autowired
     PizzaTypeRepository pizzaTypeRepository;
 
-    public List<PizzaType> getAllPizzaTypes()
+    public List<String> getAllPizzaTypes()
     {
-        List<PizzaType> pizzaTypes = new ArrayList<PizzaType>();
-        pizzaTypeRepository.findAll().forEach(pizzaType -> pizzaTypes.add(pizzaType));
+        List<String> pizzaTypes = new ArrayList<String>();
+        pizzaTypeRepository.findAll().forEach(pizzaType -> pizzaTypes.add(pizzaType.getName()));
         return pizzaTypes;
     }
 

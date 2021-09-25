@@ -15,10 +15,10 @@ public class ToppingService {
     @Autowired
     ToppingRepository toppingRepository;
 
-    public List<Topping> getAllToppings()
+    public List<String> getAllToppings()
     {
-        List<Topping> toppings = new ArrayList<Topping>();
-        toppingRepository.findAll().forEach(topping -> toppings.add(topping));
+        List<String> toppings = new ArrayList<String>();
+        toppingRepository.findAll().forEach(topping -> toppings.add(topping.getName()));
         return toppings;
     }
 
