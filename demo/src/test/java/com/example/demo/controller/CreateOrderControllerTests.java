@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.input.OrderInput;
 import com.example.demo.model.input.PizzaInput;
+import com.example.demo.model.input.ToppingInput;
 import com.example.demo.model.output.CustomerOutput;
 import com.example.demo.model.output.OrderOutput;
 import com.example.demo.model.output.PizzaOutput;
@@ -146,6 +147,29 @@ public class CreateOrderControllerTests extends OrderControllerTests {
         pizzas.add(new PizzaInput("NORMALE"));
         pizzas.add(new PizzaInput("VEGGIE"));
         order.setPizzas(pizzas);
+        HttpEntity<OrderInput> request = new HttpEntity<>(order);
+        ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(SERVICE_URL + port + SINGLE_ORDER_URL, request, String.class);
+
+        // THEN the request returns resource not found
+        assertEquals(406, responseEntity.getStatusCode().value());
+    }
+
+    @Test
+    public void createNewOrderToppingNotFound() throws Exception {
+
+        // GIVEN 3 orders set on the DB
+
+        // WHEN a new single order is created with unknown payment option
+        OrderInput order = new OrderInput();
+        order.setCustomerUuid(UUID.fromString(FIRST_CUSTOMER_UUID));
+        order.setPayOption("ONLINE");
+        order.setStatus(COOKING_STATE);
+        List<PizzaInput> pizzas = new ArrayList<>();
+        PizzaInput pizzaWithUnknownTopping = new PizzaInput("NORMAL");
+        pizzaWithUnknownTopping.setToppings(List.of(new ToppingInput("eggs")));
+        pizzas.add(pizzaWithUnknownTopping);
+        order.setPizzas(pizzas);
+        order.setDeliveryAddress("New address");
         HttpEntity<OrderInput> request = new HttpEntity<>(order);
         ResponseEntity<String> responseEntity = this.restTemplate.postForEntity(SERVICE_URL + port + SINGLE_ORDER_URL, request, String.class);
 

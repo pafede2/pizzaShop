@@ -37,7 +37,7 @@ public class SingleOrderControllerTests extends OrderControllerTests {
         // GIVEN 3 orders set on the DB
 
         // WHEN a single order is requested
-        ResponseEntity<OrderOutput> responseEntity = this.restTemplate.getForEntity(SERVICE_URL + port + SINGLE_ORDER_URL + UUID.randomUUID(),
+        ResponseEntity<OrderOutput> responseEntity = this.restTemplate.getForEntity(SERVICE_URL + port + SINGLE_ORDER_URL + "/" + UUID.randomUUID(),
                 OrderOutput.class);
 
         // THEN the request executes successfully but the order was not found

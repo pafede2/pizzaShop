@@ -80,4 +80,34 @@ public class UpdateOrderControllerTests extends OrderControllerTests {
 
     }
 
+    @Test
+    public void updateNewOrderAddressError() throws Exception {
+
+        // GIVEN a new order
+        OrderInput order = new OrderInput();
+        order.setCustomerUuid(UUID.fromString(FIRST_CUSTOMER_UUID));
+        order.setPayOption("ONLINE");
+        order.setStatus(COOKING_STATE);
+        List<PizzaInput> pizzas = new ArrayList<>();
+        pizzas.add(new PizzaInput("NORMAL"));
+        pizzas.add(new PizzaInput("VEGGIE"));
+        order.setPizzas(pizzas);
+        order.setDeliveryAddress("Address");
+        HttpEntity<OrderInput> request = new HttpEntity<>(order);
+        ResponseEntity<OrderOutput> responseEntity = this.restTemplate.postForEntity(SERVICE_URL + port + SINGLE_ORDER_URL, request, OrderOutput.class);
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        OrderOutput orderOutput = responseEntity.getBody();
+        String orderUuid = orderOutput.getUuid();
+
+        // WHEN a new single order is updated
+        order = new OrderInput();
+        order.setStatus(CANCELLED_STATE);
+        order.setPaymentStatus(true);
+
+        request = new HttpEntity<>(order);
+        responseEntity = restTemplate.postForEntity(SERVICE_URL + port + SINGLE_ORDER_URL + "/" + orderUuid + "?_method=patch", request, OrderOutput.class);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+
+    }
+
 }
