@@ -8,6 +8,7 @@ import com.example.demo.model.output.PizzaOutput;
 import com.example.demo.model.output.ToppingOutput;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.net.URI;
@@ -35,7 +36,7 @@ public class UpdateOrderControllerTests extends OrderControllerTests {
         order.setDeliveryAddress("Address");
         HttpEntity<OrderInput> request = new HttpEntity<>(order);
         ResponseEntity<OrderOutput> responseEntity = this.restTemplate.postForEntity(SERVICE_URL + port + SINGLE_ORDER_URL, request, OrderOutput.class);
-        assertEquals(200, responseEntity.getStatusCode().value());
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         OrderOutput orderOutput = responseEntity.getBody();
         String orderUuid = orderOutput.getUuid();
         assertEquals(COOKING_STATE, orderOutput.getOrderStatus());

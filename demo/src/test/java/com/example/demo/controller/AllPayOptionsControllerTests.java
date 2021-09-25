@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.PayOption;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -19,7 +20,7 @@ public class AllPayOptionsControllerTests extends OrderControllerTests {
                 PayOption[].class);
 
         // THEN the request executes successfully
-        assertEquals(200, responseEntity.getStatusCode().value());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         // AND 3 customers are retrieved
         PayOption[] payOptions = responseEntity.getBody();

@@ -5,6 +5,7 @@ import com.example.demo.model.output.OrderOutput;
 import com.example.demo.model.output.PizzaOutput;
 import com.example.demo.model.output.ToppingOutput;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class AllOrderControllerTests extends OrderControllerTests {
                 OrderOutput[].class);
 
         // THEN the request executes successfully
-        assertEquals(200, responseEntity.getStatusCode().value());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         // AND 3 orders are retrieved
         OrderOutput[] allOrders = responseEntity.getBody();

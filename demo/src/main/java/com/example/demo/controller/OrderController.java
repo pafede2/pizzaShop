@@ -3,11 +3,11 @@ package com.example.demo.controller;
 import java.util.List;
 import java.util.UUID;
 
-import com.example.demo.model.*;
 import com.example.demo.model.input.OrderInput;
 import com.example.demo.model.output.OrderOutput;
 import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,6 +24,7 @@ public class OrderController
     }
 
     @PostMapping("/order")
+    @ResponseStatus(HttpStatus.CREATED)
     private OrderOutput newOrder(@RequestBody OrderInput order) {
         return pizzaOrderService.saveOrder(order);
     }

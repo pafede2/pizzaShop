@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.output.OrderOutput;
 import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.UUID;
@@ -21,7 +22,7 @@ public class SingleOrderControllerTests extends OrderControllerTests {
                 OrderOutput.class);
 
         // THEN the request executes successfully
-        assertEquals(200, responseEntity.getStatusCode().value());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         // AND 3 orders are retrieved
         OrderOutput singleOrder = responseEntity.getBody();
