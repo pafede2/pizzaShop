@@ -73,7 +73,10 @@ public class PizzaOrderService {
                             .build()
 
                         ).collect(Collectors.toList()))
-                .withCustomerOutput(new CustomerOutput(order.getCustomer().getUuid(), order.getCustomer().getFirstName(), order.getCustomer().getLastName()))
+                .withCustomerOutput(new CustomerOutput.CustomerOutputBuilder()
+                        .withUuid(order.getCustomer().getUuid())
+                        .withFirstName(order.getCustomer().getFirstName())
+                        .withLastName(order.getCustomer().getLastName()).build())
                 .withDeliveryAddress(order.getDeliveryAddress())
                 .build();
     }

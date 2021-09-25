@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.example.demo.exception.CustomerMalFormedException;
 import com.example.demo.exception.CustomerNotFoundException;
+import com.example.demo.model.output.CustomerOutput;
 import com.example.demo.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,15 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<Customer> getAllCustomers()
+    public List<CustomerOutput> getAllCustomers()
     {
-        List<Customer> customers = new ArrayList<Customer>();
-        customerRepository.findAll().forEach(customer -> customers.add(customer));
+        List<CustomerOutput> customers = new ArrayList<CustomerOutput>();
+        customerRepository.findAll().forEach(customer ->
+                customers.add(new CustomerOutput.CustomerOutputBuilder()
+                        .withUuid(customer.getUuid())
+                        .withFirstName(customer.getFirstName())
+                        .withLastName(customer.getLastName())
+                        .build()));
         return customers;
     }
 

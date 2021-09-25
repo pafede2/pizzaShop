@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Customer;
+import com.example.demo.model.output.CustomerOutput;
 import com.example.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @GetMapping("/customers")
-    private List<Customer> getAllCustomers() {
+    private List<CustomerOutput> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 

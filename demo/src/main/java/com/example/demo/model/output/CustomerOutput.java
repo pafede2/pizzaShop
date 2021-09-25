@@ -1,5 +1,6 @@
 package com.example.demo.model.output;
 
+import java.util.List;
 import java.util.UUID;
 
 public class CustomerOutput {
@@ -10,13 +11,40 @@ public class CustomerOutput {
 
     private String lastName;
 
-    public CustomerOutput() {
+
+    private CustomerOutput() {
     }
 
-    public CustomerOutput(UUID uuid, String firstName, String lastName) {
-        this.uuid = uuid;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public static final class CustomerOutputBuilder {
+
+        private UUID uuid;
+
+        private String firstName;
+
+        private String lastName;
+
+        public CustomerOutputBuilder withUuid(UUID uuid) {
+            this.uuid = uuid;
+            return this;
+        }
+
+        public CustomerOutputBuilder withFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public CustomerOutputBuilder withLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public CustomerOutput build() {
+            CustomerOutput customerOutput = new CustomerOutput();
+            customerOutput.setUuid(this.uuid);
+            customerOutput.setFirstName(this.firstName);
+            customerOutput.setLastName(this.lastName);
+            return customerOutput;
+        }
     }
 
     public void setFirstName(String firstName) {

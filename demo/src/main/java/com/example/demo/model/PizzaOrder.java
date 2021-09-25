@@ -51,6 +51,9 @@ public class PizzaOrder {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Pizza> pizzas;
 
+    private PizzaOrder() {
+    }
+
     public static final class PizzaOrderBuilder {
 
         private Customer customer;

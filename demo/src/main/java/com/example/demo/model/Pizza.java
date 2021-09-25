@@ -29,6 +29,9 @@ public class Pizza {
     @OneToMany
     private List<Topping> toppings;
 
+    private Pizza() {
+    }
+
     public static final class PizzaBuilder {
 
         private PizzaType pizzaType;
